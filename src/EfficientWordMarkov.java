@@ -13,16 +13,16 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 	@Override
 	//trains markov machine where a is the wordgram that is the key and n is the string following mywords, method maps inital map then updates using an arraylist with the next strings
 	public void setTraining(String t) {	
-		int s= getOrder();
+		int o= getOrder();
 		myMap.clear();
 		myWords = t.split("\\s+");
-		for (int i = 0; (i+s) < myWords.length;i++) {
-			WordGram a= new WordGram(myWords,i,s);
+		for (int i = 0; i<=myWords.length-o;i++) {
+			WordGram a= new WordGram(myWords,i,o);
 			String n= "";
-			if ((i+s)==(myWords.length-1)) {
+			if (i>t.length()-o-1) {
 				n= PSEUDO_EOS;}
 			 else {
-				n= myWords[i+s];}
+				n= myWords[i+o];}
 			
 			if (! myMap.containsKey(a)) {
 				ArrayList<String> b= new ArrayList<String>();

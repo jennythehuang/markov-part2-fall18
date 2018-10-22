@@ -15,19 +15,19 @@ public class EfficientMarkov extends BaseMarkov{
 	//method to train the markov machine where k is myMap's key and n is the string following myWords, method maps then updates using an Arraylist with the next strings
 	public void setTraining (String t) {
 		
-		int a = getOrder();
+		int o = getOrder();
 		myMap.clear();															
 		myText = t;
 		
-		for (int i = 0; (i+a) < t.length(); i ++) {
+		for (int i = 0; i<=t.length()-o; i++) {
 			String k= "";
 			String n= "";
-			k= k+ t.substring(i,i+a);
+			k= k+ t.substring(i,i+o);
 			
-			if ((t.length() - 1) == (i+a)) {
+			if (i>t.length()-o-1) {
 				n = PSEUDO_EOS;}
 			else {
-				n = t.substring(i+a,i+a+1);}
+				n = t.substring(i+o,i+o+1);}
 			
 			if (! myMap.containsKey(k)) {
 				ArrayList<String> follow = new ArrayList<String>();
