@@ -1,40 +1,47 @@
 import java.util.*;
 
 public class EfficientWordMarkov extends BaseWordMarkov {
+	
 	HashMap<WordGram, ArrayList<String>> myMap;
-	public EfficientWordMarkov(int order) {											//constructor to initialize myMap and set the order
-		super(order);
+	
+	//initialize mymap and set order
+	public EfficientWordMarkov(int o) {
+		super(o);
 		myMap = new HashMap<WordGram, ArrayList<String>>();
 	}
+	
 	@Override
-	public void setTraining(String text) {											//trains the markov machine
-		int size = getOrder();
+	//trains markov machine where a is the wordgram that is the key and n is the string following mywords, method maps inital map then updates using an arraylist with the next strings
+	public void setTraining(String t) {	
+		int s= getOrder();
 		myMap.clear();
-		myWords = text.split("\\s+");
-		for (int i = 0; (i + size) < myWords.length; i ++) {
-			WordGram wg = new WordGram(myWords, i, size);							//wg is the WordGram object that will become the key in myMap
-			String next = "";														//next is the string immediately following myWords
-			if ((i + size) == (myWords.length - 1)) {
-				next = PSEUDO_EOS;
+		myWords = t.split("\\s+");
+		for (int i = 0; (i+s) < myWords.length;i++) {
+			WordGram a= new WordGram(myWords,i,s);
+			String n= "";
+			if ((i+s)==(myWords.length-1)) {
+				n= PSEUDO_EOS;}
+			 else {
+				n= myWords[i+s];}
+			
+			if (! myMap.containsKey(a)) {
+				ArrayList<String> b= new ArrayList<String>();
+				b.add(n);
+				myMap.put(a,b);
 			} else {
-				next = myWords[i + size];
-			}
-			if (! myMap.containsKey(wg)) {											//creates initial mapping
-				ArrayList<String> follow = new ArrayList<String>();
-				follow.add(next);
-				myMap.put(wg, follow);
-			} else {																	//updates the value arrayList with additional next strings
-				ArrayList<String> value = new ArrayList<String>(myMap.get(wg));
-				value.add(next);
-				myMap.put(wg, value);
+				ArrayList<String> x= new ArrayList<String>(myMap.get(a));
+				x.add(n);
+				myMap.put(a,x);
 			}
 		}
 	}
+	
 	@Override
-	public ArrayList<String> getFollows(WordGram key) {								//returns the arrayList of possible next strings for a given WordGram
+	//returns next possible strings in an arraylist
+	public ArrayList<String> getFollows(WordGram wg) {
 		try {
-			return myMap.get(key);
-		} catch(NoSuchElementException e) {											//catches the error for no key value mapping pair
+			return myMap.get(wg);
+		} catch(NoSuchElementException e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
