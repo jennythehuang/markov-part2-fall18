@@ -24,10 +24,10 @@ public class EfficientMarkov extends BaseMarkov{
 			String n= "";
 			k= k+ t.substring(i,i+a);
 			
-			if ((t.length() - 1) == (i+a)) 
-				n = PSEUDO_EOS;
-			else 
-				n = t.substring(i+a,1+a+i);
+			if ((t.length() - 1) == (i+a)) {
+				n = PSEUDO_EOS;}
+			else {
+				n = t.substring(i+a,1+a+i);}
 			
 			if (! myMap.containsKey(k)) {
 				ArrayList<String> follow = new ArrayList<String>();

@@ -19,10 +19,10 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 		for (int i = 0; (i+s) < myWords.length;i++) {
 			WordGram a= new WordGram(myWords,i,s);
 			String n= "";
-			if ((i+s)==(myWords.length-1)) 
-				n= PSEUDO_EOS;
-			 else 
-				n= myWords[i+s];
+			if ((i+s)==(myWords.length-1)) {
+				n= PSEUDO_EOS;}
+			 else {
+				n= myWords[i+s];}
 			
 			if (! myMap.containsKey(a)) {
 				ArrayList<String> b= new ArrayList<String>();
