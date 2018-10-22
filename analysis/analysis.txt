@@ -3,6 +3,8 @@ This is the analysis for Markov Part 2, Fall 2018
 Include your name and net id here. Answer the questions from the assignment 
 that are reproduced below
 
+JENNY HUANG, jlh165
+
 (1) Determine (from running Benchmark.java) how long it takes for 
 BaseMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
 random characters using the default file and an order 5 Markov Model. 
@@ -11,7 +13,10 @@ The program also generates 4,096 characters using texts that increase in
 size from 496,768 characters to 4,967,680 characters (10 times the number).  
 Do you the timings support the O(NT) analysis for BaseMarkov?
 
-
+For 2000, 4000, 8000, 16000 and 32000 the times were 0.194, 0.355, 0.698, 1.141, and 2.615 respectively.
+These timings definitely support the O(NT) analysis of BaseMarkov since
+getRandomText is O(N) and getFollows in BaseMarkov is O(T) and O(1) in EfficientMarkov. 
+Since getFollows is called in getRandomText, BaseMarkov is therefore O(NT).
 
 (2) Determine (from running Benchmark.java) how long it takes for 
 EfficientMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
@@ -21,7 +26,17 @@ The program also generates 4,096 characters using texts that increase in
 size from 496,768 characters to 4,967,680 characters (10 times the number).  
 Do you the timings support the O(N+T) analysis for EfficientMarkov?
 
+For 2000, 4000, 8000, 16000 and 32000 the times were 0.213, 0.233, 0.234, 0.178, 0.176 respectively.
+The timing support the O(N+T) analysis for EfficientMarkov since
+getFollows in EfficientMarkov is O(1) so getRandomText is O(N).
+setTraining is O(T) and setTraining isn't called in getRandomText so
+EfficientMarkov ends up being O(N+T) because of those 2 separate methods.
+
 (3)The tests in the class Benchmark use an order-5 Markov Model. 
 Run tests that you think are appropriate to determine if the order of the 
 Markov Model has a significant impact on the running time for BaseMarkov. 
 Explain your reasoning.
+
+The order is not important for the running time of BaseMarkov.
+Order doesn't affect how BaseMarkov gets new wordgrams in getFollows.
+Increasing order might make runtime decrease slightly though.
